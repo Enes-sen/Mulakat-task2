@@ -1,0 +1,12 @@
+https://www.google.com/
+https://www.instagram.com/
+https://web.whatsapp.com/
+https://blog-app-r4kr.onrender.com/
+https://www.google.com/thispagedoesnotexist
+https://api.example.com/v1/invalidendpoint
+https://expired.badssl.com/
+https://this-domain-is-invalid.test/
+https://www.example.com/forbidden-path
+https://server-error.example.com/
+fttps://wwww.example.com/
+https://fistblog.onrender.com/posts
