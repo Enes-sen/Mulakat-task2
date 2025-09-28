@@ -7,25 +7,24 @@ subparsing = arpars.add_subparsers(dest="command",help="Komutlar")
 Optionparser = subparsing.add_parser("optionid",help="Select Option(1-5)")
 Optionparser.add_argument("taskid",type=int,help="select(1-5)options")
 args = arpars.parse_args()
-
+argt = args._get_kwargs()
 
 def Connectdb (dbname:str):
     return _sql.connect(f"{dbname}")
 
 Con = Connectdb(Dbname)
+
+Cur  = Con.cursor()
 def Commit():
     Con.commit()
     Con.close()
 
 def Intreducer():
-    cur = Con.cursor()
-    cur.execute(SqlTableCreate)
+    Cur.execute(SqlTableCreate)
     Commit()
 
-
 def GetAllTasks():
-    cur = Con.cursor()
-    data =  cur.execute(SqlGetAll).fetchall()
+    data =  Cur.execute(SqlGetAll).fetchall()
     Tasklist = data
     Commit()
     if len(tasklists) != 0:
@@ -36,16 +35,14 @@ def GetAllTasks():
         print("you Has no Tasks Added!")
 
 def AddTask(task):
-    cur = Con.cursor()
-    cur.execute(SqlAddOne,(task,0))
+    Cur.execute(SqlAddOne,(task,0))
     Commit()
     print("Task Added")
 
 def DeleteOne(id:int):
-    cur = Con.cursor()
     data = GetOne(id)
     if data != None:
-        cur.execute(SqlDeleteOne,(id,))
+        Cur.execute(SqlDeleteOne,(id,))
         Commit()
         print(f"Task with id:{id} was deleted!")
     else:
@@ -53,26 +50,21 @@ def DeleteOne(id:int):
     
 
 def UpdateStatus(id:int):
-    cur = Con.cursor()
     data = GetOne(id)
     if data != None:
-        cur.execute(SqlCompleteOne,(id,))
+        Cur.execute(SqlCompleteOne,(id,))
         Commit()
         print(f"Task with id:{id} is completed!")
     else:
         print(f"There is no such task with this id:{id},to complete!")
     
 def GetOne(id:int):
-    cur = Con.cursor()
-    print(type(cur))
-    task = cur.execute(SqlGetOne,(id,)).fetchone()
+    task = Cur.execute(SqlGetOne,(id,)).fetchone()
     if(task):
         return task
     else:
         print(f"there is no such task with this id:{id}")
         return None
-        
-argt = args._get_kwargs()
 
 if argt[0][1] == "optionid"  and args.taskid == 1:
     print(tasklists)
