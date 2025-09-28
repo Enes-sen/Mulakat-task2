@@ -1,4 +1,5 @@
 Tasklist =[]
+Dbname ="Todo.db"
 SqlTableCreate ="CREATE TABLE IF NOT EXISTS Tasks(id INTEGER PRIMARY KEY AUTOINCREMENT,task Text,completed INTEGER)"
 SqlGetAll ="SELECT * FROM Tasks"
 SqlCompleteOne ="UPDATE Tasks SET completed = 1 WHERE id = ?"
